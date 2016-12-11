@@ -58,6 +58,38 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  
+
+
+  window.addEventListener('keydown', function (e){
+    console.log(e.keyCode);//outputs keycode to key pressed
+    const audioT = document.querySelector('audio[data-key="65"]'); //associates data key 65 to the audio line with the respective sound file.
+   console.log("audioT: " + audioT);// outputs <audio data-key="65" src="sounds/clap.wav"></audio>
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    //You have to use ` key which is below the ~ instead of ' single quote
+    //ANd the ${e.keyCode} acts as a dynamic variable to record the event
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      //Find the Div class "key" and get the data key variable
+      console.log(key);
+    if(!audio) return; //stop the function from running altogether.
+    audio.currentTime = 0;//rewind to the start
+    audio.play();
+    key.classList.add('playing');
+    console.log(key.property);
+    /* Listen for a transition! */
+    /*key.addEventListener("transitionend", removeCssClass);
+    function removeCssClass() {
+      console.log("transitionend event occured - The transition has completed");
+      key.classList.remove('playing');
+    };*/
+  });
+
+  const keys = document.querySelectorAll('.key');
+  console.log(keys);
+  function removeTransition(e){
+    this.classList.remove('playing');
+  };
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 </script>
 
